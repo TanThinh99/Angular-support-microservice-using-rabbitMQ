@@ -1,0 +1,54 @@
+<div class="px-10 py-8 m-auto bg-slate-100">
+  <div [formGroup]="form" class="flex flex-col gap-9 m-auto px-16 py-6 max-w-lg bg-blue-100">
+    <div>
+      <h4>Customer</h4>
+      <mat-form-field appearance="fill" class="w-full mt-3">
+        <mat-select formControlName="cid">
+          <mat-option *ngFor="let customer of customers" [value]="customer.id">
+            {{customer.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h4>Product</h4>
+      <mat-form-field appearance="fill" class="w-full mt-3">
+        <mat-select formControlName="pid">
+          <mat-option *ngFor="let prod of products" [value]="prod.id">
+            {{prod.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div>
+      <h4>Quantity</h4>
+      <input type="number" formControlName="quantity" min="1" class="w-32 mt-3 py-2 px-3 rounded">
+    </div>
+    
+    <div>
+      <h4>Description</h4>
+      <textarea formControlName="description" rows="7" class="mt-3 w-full py-2 px-3 rounded"></textarea>
+    </div>
+    
+    <div>
+      <h4>Order date</h4>
+      <input type="date" formControlName="orderDate" [min]="minDate" class="mt-3 py-3 px-4 rounded">
+    </div>
+    
+    <button 
+      class="m-auto rounded-lg bg-white py-3 px-4 hover:cursor-pointer" 
+      [ngClass]="{'opacity-50 pointer-events-none': form.invalid || isSubmitting}"
+      (click)="onSubmitBtnClick()">
+      Submit
+    </button>
+
+    <div 
+      *ngIf="isOrderConfirmed !== null" 
+      class="text-center"
+      [ngClass]="isOrderConfirmed ? 'text-green-500' : 'text-red-600'">
+      {{isOrderConfirmed ? 'The order is confirmed' : 'The order is rejected!'}}
+    </div>
+  </div>
+</div>
